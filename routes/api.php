@@ -20,6 +20,6 @@ Route::controller(API\AuthController::class)->group(function () {
     Route::post('register', 'register');
 });
 
-Route::middleware(['middleware' => 'auth:api'], function() {
-    Route::get('details', [API\AuthController::class, 'details']);
+Route::middleware('auth:api')->group(function() {
+    Route::get('get-user', [API\AuthController::class, 'details']);
 });
