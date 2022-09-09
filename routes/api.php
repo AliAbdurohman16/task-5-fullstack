@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API;
+use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +16,14 @@ use App\Http\Controllers\API;
 |
 */
 
-Route::controller(API\AuthController::class)->group(function () {
+Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
 });
 
 Route::middleware('auth:api')->group(function() {
-    Route::get('get-user', [API\AuthController::class, 'details']);
+    Route::get('get-user', [AuthController::class, 'details']);
 
     // Article
-    Route::resource('articles', [API\ArticleController::class]);
+    Route::resource('articles', [ArticleController::class]);
 });
