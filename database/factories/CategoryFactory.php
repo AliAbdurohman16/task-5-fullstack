@@ -16,7 +16,7 @@ class CategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->text(),
-            'user_id' => $this->faker->unique()->numberBetween(1, User::count()),
+            'user_id' => $this->faker->numberBetween(1, User::count()),
         ];
     }
 }

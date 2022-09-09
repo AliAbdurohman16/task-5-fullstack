@@ -19,8 +19,8 @@ class ArticleFactory extends Factory
             'title' => $this->faker->title(),
             'content' => $this->faker->text(),
             'image' => $this->faker->imageUrl(200, 200),
-            'user_id' => $this->faker->unique()->numberBetween(1, User::count()),
-            'category_id' => $this->faker->unique()->numberBetween(1, Category::count()),
+            'user_id' => $this->faker->numberBetween(1, User::count()),
+            'category_id' => $this->faker->numberBetween(1, Category::count()),
         ];
     }
 }
