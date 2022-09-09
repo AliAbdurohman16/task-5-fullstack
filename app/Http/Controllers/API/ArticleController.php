@@ -13,7 +13,7 @@ class ArticleController extends Controller
         $data = Article::all();
         return response()->json([
             'success' => true,
-            'Message' => 'Articles List',
+            'Message' => 'Article List',
             'data' => $data
         ]);
     }
