@@ -22,4 +22,7 @@ Route::controller(API\AuthController::class)->group(function () {
 
 Route::middleware('auth:api')->group(function() {
     Route::get('get-user', [API\AuthController::class, 'details']);
+
+    // Article
+    Route::resource('articles', [API\ArticleController::class]);
 });
