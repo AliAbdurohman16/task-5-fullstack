@@ -21,9 +21,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
 });
 
-Route::middleware('auth:api')->group(function() {
+Route::middleware('auth:api')->group(function () {
     Route::get('get-user', [AuthController::class, 'details']);
 
     // Article
-    Route::resource('articles', [ArticleController::class]);
+    Route::resource('articles', ArticleController::class);
 });
