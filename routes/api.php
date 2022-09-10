@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ArticleController;
+use App\Http\Controllers\API\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,7 @@ Route::middleware('auth:api')->group(function () {
 
     // Article
     Route::resource('articles', ArticleController::class);
+
+    // Category
+    Route::resource('categories', CategoryController::class);
 });
