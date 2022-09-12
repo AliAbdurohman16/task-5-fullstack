@@ -26,8 +26,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('get-user', [AuthController::class, 'details']);
 
     // Article
-    Route::resource('articles', ArticleController::class);
+    Route::apiResource('articles', ArticleController::class);
 
     // Category
-    Route::resource('categories', CategoryController::class);
+    Route::apiResource('categories', CategoryController::class);
 });
