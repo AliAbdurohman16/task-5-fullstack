@@ -93,7 +93,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        $category->update($request->all());
+
+        return response()->json([
+            "success" => true,
+            "message" => "Category updated successfully",
+            "data" => $category
+        ]);
     }
 
     /**
@@ -104,6 +115,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return response()->json([
+            "success" => true,
+            "message" => "Category deleted successfully",
+        ]);
     }
 }
