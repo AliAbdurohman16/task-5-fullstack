@@ -19,7 +19,7 @@ class CategoryController extends Controller
 
         return response()->json([
             "success" => true,
-            "Message" => "Category List",
+            "message" => "Category List",
             "data" => $category
         ]);
     }
@@ -42,7 +42,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'user_id' => 'required',
+        ]);
+
+        $category = Category::create($request->all());
+
+        return response()->json([
+            "success" => true,
+            "message" => "Category created successfully",
+            "data" => $category
+        ]);
     }
 
     /**
