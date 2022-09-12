@@ -78,10 +78,6 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
 
-        if (is_null($article)) {
-            return $this->sendError('Article not found.');
-        }
-
         return response()->json([
             "success" => true,
             "message" => "Article retrieved successfully.",
