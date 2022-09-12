@@ -16,12 +16,12 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $data = Article::all();
+        $article = Article::all();
 
         return response()->json([
             "success" => true,
             "Message" => "Article List",
-            "data" => $data
+            "data" => $article
         ]);
     }
 
@@ -43,22 +43,25 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-
-        $validator = Validator::make($input, [
-            'title' => 'require',
-            'content' => 'require',
-            'image' => 'require|image|mimes:jpg,png,jpeg,svg|max:2048',
-            'user_id' => 'require',
-            'category_id' => 'require'
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+            'user_id' => 'required',
+            'category_id' => 'required'
         ]);
 
-        if ($validator->fails()) {
-            return $this->sendError('Validation error.', $validator->errors());
+        $input = $request->all();
+
+        if ($image = $request->file('image')) {
+            $destinationPath = 'images/articles/';
+            $nameImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $nameImage);
+            $input['image'] = "$nameImage";
         }
 
         $article = Article::create($input);
-        
+
         return response()->json([
             "success" => true,
             "message" => "Product created successfully",
@@ -109,24 +112,24 @@ class ArticleController extends Controller
     {
         $input = $request->all();
 
-        $validator = Validator::make($input, [
-            'title' => 'require',
-            'content' => 'require',
-            'image' => 'require|image|mimes:jpg,png,jpeg,svg|max:2048',
-            'user_id' => 'require',
-            'category_id' => 'require'
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+            'user_id' => 'required',
+            'category_id' => 'required'
         ]);
 
-        if ($validator->fails()) {
-            return $this->sendError('Validation error.', $validator->errors());
+        if ($image = $request->file('image')) {
+            $destinationPath = 'images/articles/';
+            $nameImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $nameImage);
+            $input['image'] = "$nameImage";
+        } else {
+            unset($input['image']);
         }
 
-        $article->title = $input['title'];
-        $article->content = $input['content'];
-        $article->image = $input['image'];
-        $article->user_id = $input['user_id'];
-        $article->category_id = $input['category_id'];
-        $article->save();
+        $article->update($input);
 
         return response()->json([
             "success" => true,
@@ -148,7 +151,6 @@ class ArticleController extends Controller
         return response()->json([
             "success" => true,
             "message" => "Article deleted successfully.",
-            "data" => $article
         ]);
     }
 }
