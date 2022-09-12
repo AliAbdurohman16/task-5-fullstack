@@ -146,6 +146,7 @@ class ArticleController extends Controller
         return response()->json([
             "success" => true,
             "message" => "Article deleted successfully.",
+            "data" => $article
         ]);
     }
 }
