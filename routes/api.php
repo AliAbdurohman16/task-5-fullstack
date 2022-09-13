@@ -33,4 +33,5 @@ Route::prefix('v1')->group(function () {
         // Category
         Route::apiResource('categories', CategoryController::class);
     });
+    
 });
