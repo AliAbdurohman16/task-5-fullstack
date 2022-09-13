@@ -15,12 +15,11 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $article = Article::all();
-
         return response()->json([
             "success" => true,
             "Message" => "Article List",
-            "data" => $article
+            "data" => Article::all(),
+            "pagination" => Article::paginate(5)
         ]);
     }
 
