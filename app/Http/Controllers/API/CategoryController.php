@@ -63,12 +63,10 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::find($id);
-
         return response()->json([
             "success" => true,
             "message" => "Category retrieved successfully",
-            "data" => $category
+            "data" => Category::find($id)
         ]);
     }
 
