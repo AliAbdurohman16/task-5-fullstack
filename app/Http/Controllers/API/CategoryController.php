@@ -15,12 +15,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
-
         return response()->json([
             "success" => true,
             "message" => "Category List",
-            "data" => $category
+            "data" => Category::all(),
+            "pagination" => Category::paginate(5),
         ]);
     }
 
