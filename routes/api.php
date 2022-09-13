@@ -17,17 +17,20 @@ use App\Http\Controllers\API\CategoryController;
 |
 */
 
-Route::controller(AuthController::class)->group(function () {
-    Route::post('login', 'login');
-    Route::post('register', 'register');
-});
+Route::prefix('v1')->group(function () {
 
-Route::middleware('auth:api')->group(function () {
-    Route::get('get-user', [AuthController::class, 'details']);
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('login', 'login');
+        Route::post('register', 'register');
+    });
 
-    // Article
-    Route::apiResource('articles', ArticleController::class);
+    Route::middleware('auth:api')->group(function () {
+        Route::get('get-user', [AuthController::class, 'details']);
 
-    // Category
-    Route::apiResource('categories', CategoryController::class);
+        // Article
+        Route::apiResource('articles', ArticleController::class);
+
+        // Category
+        Route::apiResource('categories', CategoryController::class);
+    });
 });
