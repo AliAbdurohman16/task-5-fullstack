@@ -5,6 +5,7 @@ namespace Tests;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Faker\Factory;
+use Illuminate\Support\Facades\Artisan;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -14,6 +15,6 @@ abstract class TestCase extends BaseTestCase
 
     public function setUp(): void{
         parent::setUp();
-        $this->faker = Factory::create();
+        Artisan::call('passport:install');
     }
 }
